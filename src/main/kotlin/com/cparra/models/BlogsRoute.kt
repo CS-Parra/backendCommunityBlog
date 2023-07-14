@@ -22,9 +22,16 @@ fun Application.registerBlogsRoute(){
 
 fun Route.addBlogRoute() {
     post {
-        val blog = call.receive<Blog>()
-        blogs.add(blog)
-        call.respond(HttpStatusCode.Created, "Blog Saved")
+        try{
+            val blog = call.receive<Blog>()
+            blogs.add(blog)
+            call.respond(HttpStatusCode.Created, "Blog Saved")
+        }catch (e: Exception){
+            call.respond(HttpStatusCode.BadRequest, "Bad Request, Blog invalid")
+        }
+
+
+
     }
 }
 
